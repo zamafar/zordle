@@ -1,0 +1,21 @@
+.row-display {
+  background-color: #858694;
+  color: white;
+  text-align: right;
+  font-weight: 200;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
+  margin-bottom: 1px;
+}
+
+.row-display > div {
+  width: 95%;
+  margin-bottom: 1px;
+  flex: 1 0 auto;
+  display: flex;
+  font-size: 0.5rem;
+  padding: 0.2rem 0.7rem 0.1rem 0.5rem;
+}
