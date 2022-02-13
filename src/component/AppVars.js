@@ -88,7 +88,7 @@ export function checkWord() {
   }
 
   // check validity of word first and return 1 if not valid
-  if (wordlist.indexOf(tryWord) == -1) {
+  if (wordlist.indexOf(tryWord) === -1) {
     return 0;
   }
 

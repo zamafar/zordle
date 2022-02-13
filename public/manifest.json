@@ -1,6 +1,6 @@
 {
-  "short_name": "Calculator",
-  "name": "React Calculator Example App",
+  "short_name": "Zordle",
+  "name": "Zordle app",
   "icons": [
     {
       "src": "favicon.ico",

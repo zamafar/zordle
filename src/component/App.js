@@ -5,6 +5,7 @@ import {  getActiveRow, getActiveCol, decrementActiveCol, displayChars,
           displayCols, initialiseState, nextCol, nextRow, checkWord, dotd,
           wotd, wordBtns, clearWordBtns, WORDLEN, NUMTRIES } from "./AppVars";
 import "./App.css";
+import ErrorBoundary from "./ErrorBoundary";
 //import { check } from "prettier";
 
 function createResultGrid() {
@@ -89,23 +90,25 @@ export default class App extends React.Component {
           
           if (getActiveRow() === NUMTRIES) {
             resGrid = createResultGrid();
-            copyTxt = "Puzzle for " + dotd.toLocaleDateString() + "\n";
+            copyTxt = "Zordle for " + dotd.toLocaleDateString() + "\n";
             copyTxt = copyTxt + (getActiveRow()+1) + "/" + NUMTRIES + "\n\n";
             copyTxt = copyTxt + resGrid + "\n";
-            okToCopy = window.confirm("You Lost!\nThe word was " + wotd + "\n\n" + copyTxt + "\n" + "Copy the result?");
+            okToCopy = window.confirm("You Lost!\nThe word was " + wotd + "\n\n" + copyTxt + "\nCopy the result?");
             if (okToCopy) {
               copyToClipboard(copyTxt, doc);
+              alert("Result copied to Clipboard");
             }
           }
         }
         else if (res === 2) {
           resGrid = createResultGrid();
-          copyTxt = "Puzzle for " + dotd.toLocaleDateString() + "\n";
+          copyTxt = "Zordle for " + dotd.toLocaleDateString() + "\n";
           copyTxt = copyTxt + (getActiveRow()+1) + "/" + NUMTRIES + "\n\n";
           copyTxt = copyTxt + resGrid + "\n";
-          okToCopy = window.confirm("You Got It!\n\n" + copyTxt + "\n" + "Copy the result?");
+          okToCopy = window.confirm("You Got It!\n\n" + copyTxt + "\nCopy the result?");
           if (okToCopy) {
             copyToClipboard(copyTxt, doc);
+            alert("Result copied to Clipboard");
           }
         }
         this.setState({
@@ -132,8 +135,10 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="component-app">
-        <DisplayRow numTries = {this.numTries} />
-        <ButtonPanel clickHandler={this.handleClick} />
+        <ErrorBoundary>
+          <DisplayRow numTries = {this.numTries} />
+          <ButtonPanel clickHandler={this.handleClick} />
+        </ErrorBoundary>
       </div>
     );
   }
