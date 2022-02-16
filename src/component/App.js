@@ -137,7 +137,9 @@ export default class App extends React.Component {
       <div className="component-app">
         <ErrorBoundary>
           <DisplayRow numTries = {this.numTries} />
-          <ButtonPanel clickHandler={this.handleClick} />
+          <ButtonPanelTop clickHandler={this.handleClick} />
+          <ButtonPanelMid clickHandler={this.handleClick} />
+          <ButtonPanelBot clickHandler={this.handleClick} />
         </ErrorBoundary>
       </div>
     );
