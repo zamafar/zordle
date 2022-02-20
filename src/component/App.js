@@ -1,6 +1,9 @@
 import React from "react";
+import Banner from "./Banner";
 import DisplayRow from "./DisplayRow";
-import ButtonPanel from "./ButtonPanel";
+import ButtonPanelTop from "./ButtonPanelTop";
+import ButtonPanelMid from "./ButtonPanelMid";
+import ButtonPanelBot from "./ButtonPanelBot";
 import {  getActiveRow, getActiveCol, decrementActiveCol, displayChars, 
           displayCols, initialiseState, nextCol, nextRow, checkWord, dotd,
           wotd, wordBtns, clearWordBtns, WORDLEN, NUMTRIES } from "./AppVars";
@@ -136,6 +139,7 @@ export default class App extends React.Component {
     return (
       <div className="component-app">
         <ErrorBoundary>
+          <Banner />
           <DisplayRow numTries = {this.numTries} />
           <ButtonPanelTop clickHandler={this.handleClick} />
           <ButtonPanelMid clickHandler={this.handleClick} />
