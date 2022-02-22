@@ -15,6 +15,9 @@ export var activeRow = 0;
 export var activeCol = 0;
 
 export const buttonCols = new Map();
+export const GREEN = "#004488";
+export const ORANGE = "#DDAA33";
+export const WHITE = "#FFFFFF";
 
 // fast random number generator
 function mulberry32(a) {
@@ -95,7 +98,7 @@ export function checkWord() {
   for (i=0; i<WORDLEN; i++) {
     //buttonCols.set(displayChars[sow+i], "grey");
     if (wotd[i] === displayChars[sow+i]){
-      displayCols[sow+i] = "green";
+      displayCols[sow+i] = GREEN;
       numGreens = numGreens + 1;
     }
     else {
@@ -103,14 +106,14 @@ export function checkWord() {
     }
   }
   for (i=0; i<WORDLEN; i++) {
-    if (displayCols[sow+i] !== "green") {
+    if (displayCols[sow+i] !== GREEN) {
       var n = wotd2.indexOf(displayChars[sow+i]);
       if (n !== -1) {
-        displayCols[sow+i] = "orange";
+        displayCols[sow+i] = ORANGE;
         wotd2 =  wotd2.slice(0, n) + wotd2.slice(n+1, wotd2.length);
       }
       else {
-        displayCols[sow+i] = "white";
+        displayCols[sow+i] = WHITE;
       }
     }
   }

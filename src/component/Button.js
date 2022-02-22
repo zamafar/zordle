@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Button.css";
+import { GREEN } from "./AppVars";
 
 export default class Button extends React.Component {
   static propTypes = {
@@ -25,10 +26,14 @@ export default class Button extends React.Component {
       this.props.wide ? "wide" : "",
     ];
 
+    var styles = {
+      backgroundColor: this.state.bgColor, 
+       color: (this.state.bgColor === GREEN) ? "#FFFFFF" : "#000000",
+    } 
     return (
       <div className={className.join(" ").trim()}>
        <button 
-          style={{backgroundColor: this.state.bgColor}}
+          style={styles}
           onClick={this.handleClick}>{this.props.name}
         </button>
       </div>

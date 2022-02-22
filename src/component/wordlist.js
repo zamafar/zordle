@@ -3999,7 +3999,6 @@ const wordlist = [
 "VOUCH",
 "VOWED",
 "VOWEL",
-"VULVA",
 "VYING",
 "WACKY",
 "WADED",

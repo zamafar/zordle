@@ -28,7 +28,7 @@ export default class ButtonPanelMid extends React.Component {
           <Button name="D" clickHandler={this.handleClick} />
           <Button name="F" clickHandler={this.handleClick} />
           <Button name="G" clickHandler={this.handleClick} />
-          <Button name="h" clickHandler={this.handleClick} />
+          <Button name="H" clickHandler={this.handleClick} />
           <Button name="J" clickHandler={this.handleClick} />
           <Button name="K" clickHandler={this.handleClick} />
           <Button name="L" clickHandler={this.handleClick} />

@@ -6,7 +6,8 @@ import ButtonPanelMid from "./ButtonPanelMid";
 import ButtonPanelBot from "./ButtonPanelBot";
 import {  getActiveRow, getActiveCol, decrementActiveCol, displayChars, 
           displayCols, initialiseState, nextCol, nextRow, checkWord, dotd,
-          wotd, wordBtns, clearWordBtns, WORDLEN, NUMTRIES } from "./AppVars";
+          wotd, wordBtns, clearWordBtns, WORDLEN, NUMTRIES,
+	  GREEN, ORANGE, WHITE } from "./AppVars";
 import "./App.css";
 import ErrorBoundary from "./ErrorBoundary";
 //import { check } from "prettier";
@@ -19,11 +20,11 @@ function createResultGrid() {
 
   var maxSq = getActiveRow() * WORDLEN + getActiveCol();
   for (var i=0; i<maxSq; i++) {
-    if (displayCols[i] === "green") {
+    if (displayCols[i] === GREEN) {
       resGrid = resGrid + greenSq;
-    } else if (displayCols[i] === "orange") {
+    } else if (displayCols[i] === ORANGE) {
       resGrid = resGrid + amberSq;
-    } else if (displayCols[i] === "white") {
+    } else if (displayCols[i] === WHITE) {
       resGrid = resGrid + blackSq;
     }
     if (((i+1) % WORDLEN) === 0) {
@@ -55,7 +56,7 @@ export default class App extends React.Component {
 
   setButtonBGCGrey = btn => {
     btn.setState({
-      bgColor: "#DEB887",
+      bgColor: (wotd.indexOf(btn.props.name) === -1) ? "#DEB887": GREEN,
     });
   };
 
