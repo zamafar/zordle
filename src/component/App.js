@@ -6,7 +6,8 @@ import ButtonPanelMid from "./ButtonPanelMid";
 import ButtonPanelBot from "./ButtonPanelBot";
 import {  getActiveRow, getActiveCol, decrementActiveCol, displayChars, 
           displayCols, initialiseState, nextCol, nextRow, checkWord, dotd,
-          wotd, wordBtns, clearWordBtns, WORDLEN, NUMTRIES,
+          wotd, wordBtns, clearWordBtns, saveState,
+          WORDLEN, NUMTRIES,
 	  GREEN, ORANGE, WHITE } from "./AppVars";
 import "./App.css";
 import ErrorBoundary from "./ErrorBoundary";
@@ -84,15 +85,14 @@ export default class App extends React.Component {
     }
     if (buttonName === "Enter") {
       if (getActiveCol() === WORDLEN) {
+        //saveState();
         var res = checkWord();
         if (res === 0) {
           alert("Invalid word")
           return;
         }
         else if (res === 1) {
-          nextRow();
-          
-          if (getActiveRow() === NUMTRIES) {
+          if (getActiveRow() === (NUMTRIES-1)) {
             resGrid = createResultGrid();
             copyTxt = "Zordle for " + dotd.toLocaleDateString() + "\n";
             copyTxt = copyTxt + (getActiveRow()+1) + "/" + NUMTRIES + "\n\n";
@@ -103,6 +103,7 @@ export default class App extends React.Component {
               alert("Result copied to Clipboard");
             }
           }
+	  nextRow();
         }
         else if (res === 2) {
           resGrid = createResultGrid();

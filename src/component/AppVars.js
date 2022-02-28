@@ -14,7 +14,7 @@ export var wordBtns = [];
 export var activeRow = 0;
 export var activeCol = 0;
 
-export const buttonCols = new Map();
+export var  buttonCols = new Map();
 export const GREEN = "#004488";
 export const ORANGE = "#DDAA33";
 export const WHITE = "#FFFFFF";
@@ -28,27 +28,56 @@ function mulberry32(a) {
 }
 
 function generate_wotd() {
-  dotd = new Date();
-  notd = Math.floor(dotd/8.64e7);
-  notd = Math.floor(mulberry32(notd) * wordlist.length);
+  var options = {year: 'numeric'};
+  var yyyy = Number(dotd.toLocaleDateString(undefined, options));
+  options = {month: '2-digit'};
+  var mm = Number(dotd.toLocaleDateString(undefined, options));
+  options = {day: '2-digit'};
+  var dd = Number(dotd.toLocaleDateString(undefined, options));
+  notd = yyyy*31*12 + mm*31 + dd;
+  alert("notd is " + notd);
+  notd = Math.floor(mulberry32(dotd) * wordlist.length);
   wotd = wordlist[notd];
+}
+
+export function saveState() {
+   localStorage.setItem("dotd", dotd.toLocaleDateString());
+   localStorage.setItem("wotd", wotd);
+   localStorage.setItem("displayChars", JSON.stringify(displayChars));
+   localStorage.setItem("displayCols", JSON.stringify(displayCols));
+   localStorage.setItem("activeRow", JSON.stringify(activeRow));
+   localStorage.setItem("activeCol", JSON.stringify(activeCol));
 }
 
 export function initialiseState() {
   generate_wotd();
-  for (var row=0; row<NUMTRIES; row++) {
-    for (var col=0; col<WORDLEN; col++) {
-      var i = row*WORDLEN + col;
-      displayChars[i] = "!";
-      displayCols[i] = "black";
+  const stored_dotd = Number(localStorage.getItem("dotd"));
+  const stored_wotd = localStorage.getItem("wotd");
+  if (stored_dotd === dotd && stored_wotd === wotd) { // restore from previous play
+    displayChars = JSON.parse(localStorage.getItem("displayChars"));
+    displayCols = JSON.parse(localStorage.getItem("displayCols"));
+    buttonCols = JSON.parse(localStorage.getItem("buttonCols")); 
+    activeRow = Number(localStorage.getItem("activeRow"));
+    activeCol = Number(localStorage.getItem("activeCol"));
+  }
+  else { // no previous state from same date, initialise to blank state
+    for (var row=0; row<NUMTRIES; row++) {
+      for (var col=0; col<WORDLEN; col++) {
+        var i = row*WORDLEN + col;
+        displayChars[i] = "!";
+        displayCols[i] = "black";
+      }
     }
+    const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for (var c of keys) {
+      buttonCols.set(c, "white");
+    }
+    buttonCols.set("Enter", "white");
+    buttonCols.set("<=", "white");
+    
+    activeRow = 0;
+    activeCol = 0;
   }
-  const keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  for (var c of keys) {
-    buttonCols.set(c, "white");
-  }
-  buttonCols.set("Enter", "white");
-  buttonCols.set("<=", "white");
 };
 
 export function getKeyBGC(c) {
